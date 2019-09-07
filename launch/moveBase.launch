@@ -1,0 +1,25 @@
+<!--  Lnavigation stack bring up -->
+<launch>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
+    <param name="footprint_padding" value="2" />
+    <param name="controller_frequency" value="10.0" />
+    <param name="controller_patience" value="3.0" />
+    <param name="oscillation_timeout" value="30.0" />
+    <param name="oscillation_distance" value="1.5" />
+    <param name="planner_patience" value="1" />
+    <param name="controller_patience" value="1" /> 
+    <remap from="cmd_vel" to="/turtle1/cmd_vel"/>
+    <param name="recovery_behavior_enabled" value="false" />
+    <rosparam file="$(find turtlesim_examples)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find turtlesim_examples)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find turtlesim_examples)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turtlesim_examples)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find turtlesim_examples)/param/base_local_planner_params.yaml" command="load" />  
+  </node>
+
+<node pkg="tf" type="static_transform_publisher" name="odom_broadcaster" args="0 0 0 0 0 0 1 map odom 100" />
+</launch>
+
+
+

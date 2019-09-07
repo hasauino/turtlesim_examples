@@ -1,0 +1,21 @@
+<!-- draw map launch file-->
+
+<launch>
+    <node pkg="turtlesim" type="turtle_teleop_key" name="turtle_teleop_key"/>
+    <node pkg="turtlesim" type="turtlesim_node" name="turtle"/>
+    <node pkg="map_server" type="map_server" name="map_server" args="$(find turtlesim_examples)/maps/map3/map.yaml"/>
+    <node pkg="turtlesim_examples" type="draw_map.py" name="draw1">
+    <param name="step" value="0.5"/>
+    <param name="task" value="treasure"/>
+    </node>
+    <node pkg="turtlesim_examples" type="tf_broadcaster.py" name="tf_broadcaster">
+    <param name="turtle_name" value="turtle1"/>
+    <param name="world_frame" value="/map"/>
+    </node>
+
+    <node pkg="turtlesim_examples" type="fake_bumber.py" name="bumber">
+    <param name="turtle_name" value="turtle1"/>
+    <param name="radius" value="1.0"/>
+    </node>
+    
+</launch>
